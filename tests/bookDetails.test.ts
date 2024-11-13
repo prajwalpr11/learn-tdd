@@ -99,4 +99,12 @@ describe('showBookDtls', () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.send).toHaveBeenCalledWith('Error fetching book 12345');
     });
+
+    // New test case to handle non-string id
+    it('should return 404 if the id is not a string', async () => {
+        await showBookDtls(res as Response, 12345 as unknown as string);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.send).toHaveBeenCalledWith('Book 12345 not found');
+    });
 });
